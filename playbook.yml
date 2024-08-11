@@ -1,0 +1,45 @@
+---
+- hosts: servers
+  become: yes
+  tasks:
+    - name: Actualizar la cache de software de apt
+      apt:
+        update_cache: yes
+
+    - name: Instalar Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Instalar Cowsay
+      apt:
+        name: cowsay
+        state: present
+
+    - name: Crear un archivo
+      copy:
+        content: "Este es un archivo creado por Ansible."
+        dest: /home/vagrant/archivo.txt
+
+    - name: Copiar archivos
+      copy:
+        src: /ruta/local/del/archivo
+        dest: /home/vagrant/
+
+    - name: Crear carpetas
+      file:
+        path: /home/vagrant/nueva_carpeta
+        state: directory
+
+    - name: Iniciar el servicio Apache
+      service:
+        name: apache2
+        state: started
+
+    - name: Agregar un usuario
+      user:
+        name: nuevo_usuario
+        state: present
+
+    - name: Ejecutar un script en el servidor
+      command: /ruta/del/script.sh
